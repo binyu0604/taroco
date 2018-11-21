@@ -18,6 +18,7 @@ zuul:
 
 security:
   validate:
+    #是否开启验证码
     code: false
     preview: false
   sessions: stateless

@@ -10,7 +10,8 @@ spring:
       server:
         native:
           search-locations: classpath:/config-dev/, classpath:/config-test/
-
+  main:
+    allow-bean-definition-overriding: true
 # eureka配置
 eureka:
   client:

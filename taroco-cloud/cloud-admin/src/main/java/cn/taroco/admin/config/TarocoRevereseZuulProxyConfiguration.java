@@ -70,7 +70,7 @@ public class TarocoRevereseZuulProxyConfiguration extends ZuulServerAutoConfigur
     @Bean
     @Order(0)
     public ApplicationRouteLocator applicationRouteLocator() {
-        ApplicationRouteLocator routeLocator = new ApplicationRouteLocator(this.server.getServlet().getPath(), registry,
+        ApplicationRouteLocator routeLocator = new ApplicationRouteLocator(this.server.getServlet().getContextPath() == null? "/":this.server.getServlet().getContextPath(), registry,
                 adminServer.getContextPath() + "/api/applications/");
         routeLocator.setEndpoints(adminServer.getRoutes().getEndpoints());
         return routeLocator;
@@ -90,7 +90,7 @@ public class TarocoRevereseZuulProxyConfiguration extends ZuulServerAutoConfigur
      */
     @Bean
     public PreDecorationFilter preDecorationFilter(RouteLocator routeLocator) {
-        return new PreDecorationFilter(routeLocator, this.server.getServlet().getPath(), zuulProperties,
+        return new PreDecorationFilter(routeLocator, this.server.getServlet().getContextPath() == null?"/":this.server.getServlet().getContextPath(), zuulProperties,
                 proxyRequestHelper());
     }
 

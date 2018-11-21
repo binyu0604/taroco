@@ -20,7 +20,8 @@ spring:
       discovery:
         service-id: taroco-config
         enabled: true
-
+  main:
+    allow-bean-definition-overriding: true
 ---
 spring:
   profiles: dev
