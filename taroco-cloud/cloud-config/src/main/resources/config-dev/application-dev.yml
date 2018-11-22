@@ -50,7 +50,7 @@ server:
   tomcat:
     max-threads: 200 # Maximum amount of worker threads.
     min-spare-threads: 10 # Minimum amount of worker threads
-
+---
 # eureka配置
 eureka:
   client:
@@ -70,7 +70,7 @@ eureka:
         weight: 100
         # 服务actuator的管理port，如果设置了的话，Turbine监控台就获取不到对应服务的hystrix.stream。这里就需要设置，Turbine会读取这个端口。
         management.port: ${management.port:${server.port}}
-
+---
 # hystrix配置
 hystrix:
   threadpool:
@@ -84,14 +84,16 @@ hystrix:
         sleepWindowInMilliseconds: 5000
       execution:
         timeout:
-          enabled: false
+          enabled: true
         isolation:
           thread:
             # 断路器的超时时间,断路器的超时时间需要大于ribbon的超时时间，不然不会触发重试。
-            timeoutInMilliseconds: 94000
-
+            timeoutInMilliseconds: 940000
+---
 # ribbon配置
 ribbon:
+  eureka:
+    enabled: true
   eager-load:
     enabled: true
     clients: taroco-admin,taroco-rbac-service,taroco-authentication-server
@@ -110,10 +112,10 @@ ribbon:
   # 从注册中心刷新servelist的时间 默认30秒 ms
   ServerListRefreshInterval: 15000
 
-
+---
 feign:
   hystrix:
-    enabled: false
+    enabled: true
   client:
     config:
       feignName:
@@ -124,3 +126,10 @@ feign:
       enabled: true
     response:
       enabled: true
+---
+zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+  okhttp:
+    enabled: true # 使用okhttp方式请求，正常来说okhttp比较速度快一点

@@ -90,6 +90,8 @@ hystrix:
 
 # ribbon配置
 ribbon:
+  eureka:
+    enabled: true
   eager-load:
     enabled: true
     clients: taroco-admin,taroco-rbac-service,taroco-authentication-server
@@ -122,3 +124,8 @@ feign:
       enabled: true
     response:
       enabled: true
+---
+zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
